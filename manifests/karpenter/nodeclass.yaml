@@ -4,7 +4,7 @@ metadata:
   name: default
 spec:
   amiFamily: AL2
-  role: "KarpenterNodeRole-solidarytech-cluster"
+  role: "Karpenter-solidarytech-cluster-20260727230502847500000006"
   subnetSelectorTerms:
     - tags:
         karpenter.sh/discovery: "solidarytech-cluster"

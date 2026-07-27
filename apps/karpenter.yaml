@@ -14,13 +14,13 @@ spec:
     helm:
       parameters:
         - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: "arn:aws:iam::560985453529:role/karpenter-solidarytech-cluster"
+          value: "arn:aws:iam::560985453529:role/KarpenterIRSA-solidarytech-cluster-20260727230502785900000005"
         - name: settings.clusterName
           value: "solidarytech-cluster"
         - name: settings.clusterEndpoint
           value: "https://kubernetes.default.svc"
         - name: settings.interruptionQueueName
-          value: "karpenter-solidarytech-cluster"
+          value: "Karpenter-solidarytech-cluster"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: karpenter
