@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubecost
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://kubecost.github.io/cost-analyzer/'
+    targetRevision: 2.2.1
+    chart: cost-analyzer
+    helm:
+      parameters:
+        - name: prometheus.enabled
+          value: "false" # Otimização: não instalar outro prometheus
+        - name: prometheus.fqdn
+          value: "http://prometheus-stack-kube-prom-prometheus.monitoring.svc:9090"
+        - name: global.grafana.enabled
+          value: "false"
+        - name: global.grafana.domainName
+          value: "prometheus-stack-grafana.monitoring.svc"
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kubecost
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
