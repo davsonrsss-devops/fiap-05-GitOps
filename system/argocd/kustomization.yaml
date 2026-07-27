@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+  # Instalação oficial do ArgoCD (versão HA ou Standalone, optando pela standalone para economizar recursos no Hackathon)
+  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Aqui podemos adicionar patches no futuro, por exemplo, para habilitar o Ingress do ArgoCD, 
+# ou configurar o ConfigMap argocd-cmd-params-cm para rodar com in-secure (para dev local).
