@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: volunteer-service
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: app=560985453529.dkr.ecr.us-east-1.amazonaws.com/solidarytech/volunteer-service
+    argocd-image-updater.argoproj.io/app.update-strategy: latest
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/davsonrsss-devops/fiap-05-GitOps.git'
+    targetRevision: HEAD
+    path: system/volunteer-service
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: solidarytech
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
