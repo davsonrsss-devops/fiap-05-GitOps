@@ -13,6 +13,8 @@ spec:
     chart: kube-prometheus-stack
     helm:
       parameters:
+        - name: grafana.service.type
+          value: "LoadBalancer"
         - name: prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues
           value: "false" # Permite pegar ServiceMonitors de outros namespaces
   destination:
