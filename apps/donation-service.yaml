@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: 'https://github.com/davsonrsss-devops/fiap-05-GitOps.git'
     targetRevision: HEAD
-    path: system/donation-service
+    path: manifests/donation-service
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: solidarytech
