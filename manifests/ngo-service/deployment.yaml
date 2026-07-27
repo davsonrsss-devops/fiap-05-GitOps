@@ -20,6 +20,16 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ngo-service-secret
+                  key: DATABASE_URL
+            - name: OTEL_SERVICE_NAME
+              value: "ngo-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://tempo.monitoring.svc:4318"
           envFrom:
             - secretRef:
                 name: ngo-service-secret

@@ -20,6 +20,11 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8083
+          env:
+            - name: OTEL_SERVICE_NAME
+              value: "volunteer-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://tempo.monitoring.svc:4318"
           envFrom:
             - secretRef:
                 name: volunteer-service-secret
