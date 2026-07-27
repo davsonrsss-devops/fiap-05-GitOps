@@ -21,6 +21,10 @@ spec:
           value: "false"
         - name: global.grafana.domainName
           value: "prometheus-stack-grafana.monitoring.svc"
+        - name: persistentVolume.enabled
+          value: "false"
+        - name: prometheus.server.persistentVolume.enabled
+          value: "false"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kubecost
