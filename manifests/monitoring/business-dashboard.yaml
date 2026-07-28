@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: business-metrics-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  business-dashboard.json: |-
+    {
+      "title": "SolidaryTech Business & KPIs",
+      "tags": ["business", "kpi"],
+      "timezone": "browser",
+      "refresh": "1m",
+      "schemaVersion": 36,
+      "panels": [
+        {
+          "type": "stat",
+          "title": "Doações Realizadas (Sucesso)",
+          "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+          "targets": [
+            {
+              "expr": "sum(increase(http_requests_total{service=\"donation-service\", status=\"200\"}[1h]))",
+              "legendFormat": "Total (Última Hora)"
+            }
+          ]
+        },
+        {
+          "type": "stat",
+          "title": "ONGs Cadastradas",
+          "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+          "targets": [
+            {
+              "expr": "sum(increase(http_requests_total{service=\"ngo-service\", status=\"200\", method=\"POST\"}[24h]))",
+              "legendFormat": "Total (Últimas 24h)"
+            }
+          ]
+        },
+        {
+          "type": "stat",
+          "title": "Novos Voluntários",
+          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+          "targets": [
+            {
+              "expr": "sum(increase(http_requests_total{service=\"volunteer-service\", status=\"200\", method=\"POST\"}[24h]))",
+              "legendFormat": "Total (Últimas 24h)"
+            }
+          ]
+        },
+        {
+          "type": "timeseries",
+          "title": "Evolução de Doações e Engajamento",
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 8 },
+          "targets": [
+            {
+              "expr": "sum(rate(http_requests_total{service=~\"donation-service|ngo-service|volunteer-service\"}[5m])) by (service)",
+              "legendFormat": "{{service}}"
+            }
+          ]
+        }
+      ]
+    }
