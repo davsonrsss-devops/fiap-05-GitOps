@@ -14,17 +14,27 @@ spec:
     helm:
       parameters:
         - name: prometheus.enabled
-          value: "false" # Otimização: não instalar outro prometheus
+          value: "false"
         - name: prometheus.fqdn
+          value: "http://prometheus-stack-kube-prom-prometheus.monitoring.svc:9090"
+        - name: global.prometheus.enabled
+          value: "false"
+        - name: global.prometheus.fqdn
           value: "http://prometheus-stack-kube-prom-prometheus.monitoring.svc:9090"
         - name: global.grafana.enabled
           value: "false"
         - name: global.grafana.domainName
-          value: "prometheus-stack-grafana.monitoring.svc"
+          value: "a6bc10d3467964640820a2346e6de0a8-1951379338.us-east-1.elb.amazonaws.com"
+        - name: global.grafana.scheme
+          value: "http"
+        - name: global.grafana.proxy
+          value: "false"
         - name: persistentVolume.enabled
           value: "false"
         - name: prometheus.server.persistentVolume.enabled
           value: "false"
+        - name: kubecostProductConfigs.grafanaURL
+          value: "http://a6bc10d3467964640820a2346e6de0a8-1951379338.us-east-1.elb.amazonaws.com"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kubecost
